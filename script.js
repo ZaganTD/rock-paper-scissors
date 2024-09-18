@@ -56,7 +56,15 @@ playRound(getHumanChoice(), getComputerChoice());
 playRound(getHumanChoice(), getComputerChoice());
 playRound(getHumanChoice(), getComputerChoice());
 
+if (humanScore > computerScore) {
+    alert('You win!')
+} else if (humanScore == computerScore) {
+    alert("it's a tie!")
+} else {
+    alert('You lose!')
+}
 
 }
 
 playGame();
+
