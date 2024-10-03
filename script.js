@@ -1,70 +1,52 @@
-const a = 'rock'
-const b = 'paper'
-const c = 'scissor'
+let a = 'rock'
+let b = 'paper'
+let c = 'scissor'
 
 function getComputerChoice() {
     let result = Math.ceil(Math.random() * 3)
     if (result == 1) {
-        return a
+        return 'rock'
     } else if (result == 2) {
-        return b
+        return 'paper'
     } else {
-        return c
+        return 'scissor'
     }
 }
 
-function getHumanChoice() {
-    let input = prompt('Choose your weapon:')
-    let input2 = input.toLowerCase()
-    switch (input2){
-        case a:
-            return a
-            break;
-        case b:
-            return b
-            break;
-        case c:
-            return c
-            break;
-        default:
-            alert('Invalid choice!')
-    }
+let humanScore = 0
+let computerScore = 0
+const humScore = document.querySelector('.humScore')
+const compScore = document.querySelector('.compScore')
+const roundResult = document.querySelector('.roundResult')
+humScore.textContent = `Human score: ${humanScore}`
+compScore.textContent = `Computer score: ${computerScore}`
 
-}
+    function playRound(para1, para2) {
+        if (para1 == para2){
+            alert(`It's a tie, ${para1} and ${para2} are equal!`)
+            roundResult.textContent = 'Tie'
+        } else if ((para1 == a && para2 == c) || (para1 == b && para2 == a) || (para1 == c && para2 == b)) {
+            alert(`You win! ${para1} beats ${para2}!`)
+            humScore.textContent = `Human score: ${++humanScore}`
+            roundResult.textContent = 'YOU WIN'
+        } else if ((para1 == c && para2 == a) || (para1 == a && para2 == b) || (para1 == b && para2 == c)) {
+            alert(`You lose! ${para2} beats ${para1}!`)
+            compScore.textContent = `Computer score: ${++computerScore}`
+            roundResult.textContent = 'YOU LOST'
+        } else {console.log(`you fucked up`)}
 
-
-function playGame() {
-    let humanScore = 0
-    let computerScore = 0
-
-function playRound(para1, para2) {
-    if (para1 == para2){
-        alert(`It's a tie, ${para1} and ${para2} are equal!`)
-    } else if ((para1 == a && para2 == c) || (para1 == b && para2 == a) || (para1 == c && para2 == b)) {
-        alert(`You win! ${para1} beats ${para2}!`)
-        console.log(`Your score = ${++humanScore}`)
-    } else if ((para1 == c && para2 == a) || (para1 == a && para2 == b) || (para1 == b && para2 == c)) {
-        alert(`You lose! ${para2} beats ${para1}!`)
-        console.log(`Computer score = ${++computerScore}`)
-    } else {console.log(`you fucked up`)}
+        if (humanScore == 5) {
+            roundResult.textContent = 'THE GAME IS OVER, YOU HAVE WON'
+        } else if (computer == 5) {
+            roundResult.textContent = 'THE GAME IS OVER, YOU HAVE LOST'
+        }
 }
 // the first else if statement is the condition for para1 (the player) to win, and the second is the reverse, for the computer to win
 
-playRound(getHumanChoice(), getComputerChoice());
-playRound(getHumanChoice(), getComputerChoice());
-playRound(getHumanChoice(), getComputerChoice());
-playRound(getHumanChoice(), getComputerChoice());
-playRound(getHumanChoice(), getComputerChoice());
 
-if (humanScore > computerScore) {
-    alert('You win!')
-} else if (humanScore == computerScore) {
-    alert("it's a tie!")
-} else {
-    alert('You lose!')
-}
 
-}
-
-playGame();
-
+const container = document.querySelector('#container')
+container.addEventListener('click', (e)=> {
+    let humanChoice = e.target.textContent.toLowerCase()
+    playRound(humanChoice, getComputerChoice())
+})
